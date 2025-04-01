@@ -13,7 +13,7 @@ def create_driver():
 
 
 def test_first_quote():
-    """Test to verify the first quote"""
+
     driver = create_driver()
     wait = WebDriverWait(driver, 15)
     try:
@@ -85,7 +85,7 @@ def test_next_button():
         print(f"Actual Result: {actualResult}")
         print(f"Expected Result: {expectedResult}")
 
-        unittest.TestCase().assertEqual(actualResult, expectedResult, "❌ Next button text does not match!")
+        unittest.TestCase().assertEqual(actualResult, expectedResult, " Next button text does not match!")
         print("Success: Next button verification passed!")
 
         nextBtn.click()
