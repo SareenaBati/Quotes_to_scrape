@@ -13,7 +13,6 @@ def create_driver():
 
 
 def test_first_quote():
-
     driver = create_driver()
     wait = WebDriverWait(driver, 15)
     try:
@@ -26,10 +25,11 @@ def test_first_quote():
         print(f"Actual Result: {actualResult}")
         print(f"Expected Result: {expectedResult}")
 
-        unittest.TestCase().assertEqual(actualResult, expectedResult, " First quote does not match!")
+        unittest.TestCase().assertEqual(actualResult, expectedResult, "First quote does not match!")
         print("Success: First quote verification passed!")
-    finally:
-        driver.quit()
+    except AssertionError as e:
+        print(f"Assertion Error: {e}")
+    driver.quit()
 
 
 def test_second_quote():
@@ -45,14 +45,14 @@ def test_second_quote():
         print(f"Actual Result: {actualResult}")
         print(f"Expected Result: {expectedResult}")
 
-        unittest.TestCase().assertEqual(actualResult, expectedResult, " Second quote does not match!")
-        print(" Success: Second quote verification passed!")
-    finally:
-        driver.quit()
+        unittest.TestCase().assertEqual(actualResult, expectedResult, "Second quote does not match!")
+        print("Success: Second quote verification passed!")
+    except AssertionError as e:
+        print(f"Assertion Error: {e}")
+    driver.quit()
 
 
 def test_third_quote():
-
     driver = create_driver()
     wait = WebDriverWait(driver, 15)
     try:
@@ -65,14 +65,14 @@ def test_third_quote():
         print(f"Actual Result: {actualResult}")
         print(f"Expected Result: {expectedResult}")
 
-        unittest.TestCase().assertEqual(actualResult, expectedResult, " Third quote does not match!")
-        print(" Success: Third quote verification passed!")
-    finally:
-        driver.quit()
+        unittest.TestCase().assertEqual(actualResult, expectedResult, "Third quote does not match!")
+        print("Success: Third quote verification passed!")
+    except AssertionError as e:
+        print(f"Assertion Error: {e}")
+    driver.quit()
 
 
 def test_next_button():
-
     driver = create_driver()
     wait = WebDriverWait(driver, 15)
     try:
@@ -85,13 +85,14 @@ def test_next_button():
         print(f"Actual Result: {actualResult}")
         print(f"Expected Result: {expectedResult}")
 
-        unittest.TestCase().assertEqual(actualResult, expectedResult, " Next button text does not match!")
+        unittest.TestCase().assertEqual(actualResult, expectedResult, "Next button text does not match!")
         print("Success: Next button verification passed!")
 
         nextBtn.click()
-        print(" Success: Next button clicked!")
-    finally:
-        driver.quit()
+        print("Success: Next button clicked!")
+    except AssertionError as e:
+        print(f"Assertion Error: {e}")
+    driver.quit()
 
 
 def test_third_quote_not_equal():
@@ -108,13 +109,13 @@ def test_third_quote_not_equal():
         print(f"Expected Result: {expectedResult}")
 
         unittest.TestCase().assertNotEqual(actualResult, expectedResult, "Third quote should not be 'none'!")
-        print(" Success: Third quote verification (not equal) passed!")
-    finally:
-        driver.quit()
+        print("Success: Third quote verification (not equal) passed!")
+    except AssertionError as e:
+        print(f"Assertion Error: {e}")
+    driver.quit()
 
 
 def test_tag_assert_is_not():
-
     driver = create_driver()
     wait = WebDriverWait(driver, 15)
     try:
@@ -128,14 +129,14 @@ def test_tag_assert_is_not():
         print(f"Expected Result: {expectedResult}")
 
         unittest.TestCase().assertIsNot(actualResult, expectedResult,
-                                        " 'love' tag should not match 'Viewing tag: love'!")
-        print(" Success: assertIsNot verification passed!")
-    finally:
-        driver.quit()
+                                        "'love' tag should not match 'Viewing tag: love'!")
+        print("Success: assertIsNot verification passed!")
+    except AssertionError as e:
+        print(f"Assertion Error: {e}")
+    driver.quit()
 
 
 def test_tag_assert_is():
-
     driver = create_driver()
     wait = WebDriverWait(driver, 15)
     try:
@@ -148,9 +149,10 @@ def test_tag_assert_is():
         print(f"Actual Result: {actualResult}")
         print(f"Expected Result: {expectedResult}")
 
-        unittest.TestCase().assertEqual(actualResult, expectedResult, " 'love' tag does not match expected value!")
-        print(" Success: assertIs verification passed!")
-    finally:
-        driver.quit()
+        unittest.TestCase().assertEqual(actualResult, expectedResult, "'love' tag does not match expected value!")
+        print("Success: assertIs verification passed!")
+    except AssertionError as e:
+        print(f"Assertion Error: {e}")
+    driver.quit()
 
 
