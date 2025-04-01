@@ -19,7 +19,7 @@ def test_first_quote():
         quoteElem = wait.until(
             EC.presence_of_element_located((By.XPATH, "(//span[@class='text'])[1]"))
         )
-        actualResult = quoteElem.text.strip()
+        actualResult = quoteElem.text
         expectedResult = "“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”"
 
         print(f"Actual Result: {actualResult}")
@@ -39,7 +39,7 @@ def test_second_quote():
         quoteElem = wait.until(
             EC.presence_of_element_located((By.XPATH, "(//span[@class='text'])[2]"))
         )
-        actualResult = quoteElem.text.strip()
+        actualResult = quoteElem.text
         expectedResult = "“It is our choices, Harry, that show what we truly are, far more than our abilities.”"
 
         print(f"Actual Result: {actualResult}")
@@ -59,7 +59,7 @@ def test_third_quote():
         quoteElem = wait.until(
             EC.presence_of_element_located((By.XPATH, "(//span[@class='text'])[3]"))
         )
-        actualResult = quoteElem.text.strip()
+        actualResult = quoteElem.text
         expectedResult = "“There are only two ways to live your life. One is as though nothing is a miracle. The other is as though everything is a miracle.”"
 
         print(f"Actual Result: {actualResult}")
@@ -79,7 +79,7 @@ def test_next_button():
         nextBtn = wait.until(
             EC.element_to_be_clickable((By.XPATH, "//nav//a[contains(text(),'Next')]"))
         )
-        actualResult = nextBtn.text.strip()
+        actualResult = nextBtn.text
         expectedResult = "Next →"
 
         print(f"Actual Result: {actualResult}")
@@ -102,7 +102,7 @@ def test_third_quote_not_equal():
         quoteElem = wait.until(
             EC.presence_of_element_located((By.XPATH, "(//span[@class='text'])[3]"))
         )
-        actualResult = quoteElem.text.strip()
+        actualResult = quoteElem.text
         expectedResult = "none"
 
         print(f"Actual Result: {actualResult}")
@@ -122,7 +122,7 @@ def test_tag_assert_is_not():
         tag = wait.until(
             EC.presence_of_element_located((By.XPATH, "//span[@class='tag-item']/a[@class='tag' and text()='love']"))
         )
-        actualResult = tag.text.strip()
+        actualResult = tag.text
         expectedResult = "Viewing tag: love"
 
         print(f"Actual Result: {actualResult}")
@@ -143,7 +143,7 @@ def test_tag_assert_is():
         tag = wait.until(
             EC.presence_of_element_located((By.XPATH, "//span[@class='tag-item']/a[@class='tag' and text()='love']"))
         )
-        actualResult = tag.text.strip()
+        actualResult = tag.text
         expectedResult = "love"
 
         print(f"Actual Result: {actualResult}")
