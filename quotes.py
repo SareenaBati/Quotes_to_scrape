@@ -3,222 +3,154 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
 
 
-def setup():
+def create_driver():
     driver = webdriver.Chrome()
     driver.get("https://quotes.toscrape.com/")
     driver.maximize_window()
     return driver
 
 
-def teardown(driver):
-    driver.quit()
-
-# assertequal
-def first_quote(driver):
-    wait = WebDriverWait(driver, 10)
-    return wait.until(EC.presence_of_element_located(
-        (By.XPATH, "//span[contains(text(),'“The world as we have created it is a process of o')]")))
-
-def second_quote(driver):
-    wait = WebDriverWait(driver, 10)
-    return wait.until(EC.presence_of_element_located(
-        (By.XPATH, "(//span[@class='text'])[2]")))
-
-def third_quote(driver):
-    wait = WebDriverWait(driver, 10)
-    return wait.until(EC.presence_of_element_located(
-        (By.XPATH, "(//span[@class='text'])[3]")))
-
-def check_quotes(driver):
-    wait=WebDriverWait(driver,10)
-    return wait.until(EC.presence_of_element_located(
-        (By.CLASS_NAME, 'text')))
-
-def next_button(driver):
-    button= WebDriverWait(driver,10).until(EC.presence_of_element_located((By.XPATH, "//nav//a[contains(text(),'Next')]")))
-
-
-
-
 def test_first_quote():
-    driver = setup()
-
+    """Test to verify the first quote"""
+    driver = create_driver()
+    wait = WebDriverWait(driver, 15)
     try:
-        quoteElem = first_quote(driver)
-        actualResult = quoteElem.text
-        expectedResult = "The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking."
+        quoteElem = wait.until(
+            EC.presence_of_element_located((By.XPATH, "(//span[@class='text'])[1]"))
+        )
+        actualResult = quoteElem.text.strip()
+        expectedResult = "“The world as we have created it is a process of our thinking. It cannot be changed without changing our thinking.”"
+
         print(f"Actual Result: {actualResult}")
-        print(f"Expected Result:{expectedResult}")
+        print(f"Expected Result: {expectedResult}")
 
-        unittest.TestCase().assertEqual(actualResult, expectedResult, f'Failed: Expected "{expectedResult}", but got "{actualResult}"')
-        print("Success: Quote verification passed!")
-
-    except Exception as e:
-        print(f"Error: {e}")
+        unittest.TestCase().assertEqual(actualResult, expectedResult, " First quote does not match!")
+        print("Success: First quote verification passed!")
+    finally:
+        driver.quit()
 
 
 def test_second_quote():
-    driver=setup()
-
+    driver = create_driver()
+    wait = WebDriverWait(driver, 15)
     try:
-        quoteElem = second_quote(driver)
-        actualResult=quoteElem.text
-        expectedResult="“It is our choices, Harry, that show what we truly are, far more than our abilities.”"
+        quoteElem = wait.until(
+            EC.presence_of_element_located((By.XPATH, "(//span[@class='text'])[2]"))
+        )
+        actualResult = quoteElem.text.strip()
+        expectedResult = "“It is our choices, Harry, that show what we truly are, far more than our abilities.”"
+
         print(f"Actual Result: {actualResult}")
-        print(f"Expected Result:{expectedResult}")
-        unittest.TestCase().assertEqual(actualResult, expectedResult,
-                                        f'Failed: Expected "{expectedResult}", but got "{actualResult}"')
-        print("Success: Quote verification passed!")
+        print(f"Expected Result: {expectedResult}")
 
-    except AssertionError as e:
-        print(e)
-
-    teardown(driver)
-
-def test_thirds_quote():
-    driver=setup()
-    try:
-        quoteElem = third_quote(driver)
-        actualResult = quoteElem.text
-        expectedResult = "“There are only two ways to live your life. One is as though nothing is a miracle. The other is as though everything is a miracle.”"
-        print(f"Actual Result: {actualResult}")
-        print(f"Expected Result:{expectedResult}")
-        unittest.TestCase().assertEqual(actualResult,expectedResult,f'Failed:Expected"{expectedResult}",but got "{actualResult}')
-        print("Success: Quote verification passed!")
-    except AssertionError as e:
-        print(e)
-
-
-def test_nexts_button():
-    driver = setup()
-    wait = WebDriverWait(driver, 10)
-    try:
-        next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//nav//a[contains(text(),'Next')]")))
-        actualResult = next_button.text
-        expectedResult = "Next →"
-        print(f"Actual Result: {actualResult}")
-        print(f"Expected Result:{expectedResult}")
-        unittest.TestCase().assertEqual(actualResult,expectedResult,f'Failed:Expected"{expectedResult}",but got "{actualResult}')
-        print("Success: Next button test passed!")
-
-        next_button.click()
-        print("Success: Next button clicked!")
-
-    except AssertionError as e:
-        print(e)
-
-    teardown(driver)
-
-
-# assert not equal
-
-# def test_next_button():
-#     driver = setup()
-#     wait = WebDriverWait(driver, 10)
-#     try:
-#         next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//nav//a[contains(text(),'Next')]")))
-#         actualResult = next_button.text
-#         expectedResult = "none"
-#         pprint(f"Actual Result: {actualResult}")
-#         print(f"Expected Result:{expectedResult}")
-#         unittest.TestCase().assertNotEqual(actualResult,expectedResult,f'Failed:Expected "{expectedResult}",but got "{actualResult}')
-#         print("Success: Next button test passed!")
-#
-#         next_button.click()
-#         print("Success: Next button clicked!")
-#
-#     except AssertionError as e:
-#         print(e)
-#
-#     teardown(driver)
+        unittest.TestCase().assertEqual(actualResult, expectedResult, " Second quote does not match!")
+        print(" Success: Second quote verification passed!")
+    finally:
+        driver.quit()
 
 
 def test_third_quote():
-    driver = setup()
+
+    driver = create_driver()
+    wait = WebDriverWait(driver, 15)
     try:
-        quoteElem = third_quote(driver)
-        actualResult = quoteElem.text
-        expectedResult = "“none”"
+        quoteElem = wait.until(
+            EC.presence_of_element_located((By.XPATH, "(//span[@class='text'])[3]"))
+        )
+        actualResult = quoteElem.text.strip()
+        expectedResult = "“There are only two ways to live your life. One is as though nothing is a miracle. The other is as though everything is a miracle.”"
+
         print(f"Actual Result: {actualResult}")
-        print(f"Expected Result:{expectedResult}")
+        print(f"Expected Result: {expectedResult}")
 
-        unittest.TestCase().assertNotEqual(actualResult, expectedResult,
-                                            f'Failed: Expected "{expectedResult}", but got "{actualResult}"')
-        print("Success: Quote verification passed (values are different)!")
-    except AssertionError as e:
-        print(e)
+        unittest.TestCase().assertEqual(actualResult, expectedResult, " Third quote does not match!")
+        print(" Success: Third quote verification passed!")
+    finally:
+        driver.quit()
 
-# assertIs
+
 def test_next_button():
-    driver = setup()
-    wait = WebDriverWait(driver, 10)
+
+    driver = create_driver()
+    wait = WebDriverWait(driver, 15)
     try:
-        next_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//nav//a[contains(text(),'Next')]")))
-        actualResult = next_button.text
+        nextBtn = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//nav//a[contains(text(),'Next')]"))
+        )
+        actualResult = nextBtn.text.strip()
+        expectedResult = "Next →"
+
+        print(f"Actual Result: {actualResult}")
+        print(f"Expected Result: {expectedResult}")
+
+        unittest.TestCase().assertEqual(actualResult, expectedResult, "❌ Next button text does not match!")
+        print("Success: Next button verification passed!")
+
+        nextBtn.click()
+        print(" Success: Next button clicked!")
+    finally:
+        driver.quit()
+
+
+def test_third_quote_not_equal():
+    driver = create_driver()
+    wait = WebDriverWait(driver, 15)
+    try:
+        quoteElem = wait.until(
+            EC.presence_of_element_located((By.XPATH, "(//span[@class='text'])[3]"))
+        )
+        actualResult = quoteElem.text.strip()
         expectedResult = "none"
+
         print(f"Actual Result: {actualResult}")
-        print(f"Expected Result:{expectedResult}")
-        unittest.TestCase().assertIs(actualResult,expectedResult,f'Failed:Expected "{expectedResult}",but got "{actualResult}')
-        print("Success: Next button test failed!")
+        print(f"Expected Result: {expectedResult}")
 
-        next_button.click()
-        print("Success: Next button clicked!")
+        unittest.TestCase().assertNotEqual(actualResult, expectedResult, "Third quote should not be 'none'!")
+        print(" Success: Third quote verification (not equal) passed!")
+    finally:
+        driver.quit()
 
-    except AssertionError as e:
-        print(e)
 
-    teardown(driver)
+def test_tag_assert_is_not():
 
-def test_tags():
-    driver = setup()
-    wait = WebDriverWait(driver, 10)
+    driver = create_driver()
+    wait = WebDriverWait(driver, 15)
     try:
-        tags = wait.until(EC.presence_of_element_located((By.XPATH, '//span[@class="tag-item"]/a[@class="tag" and text()="love"]')))
-        actualResult = tags.text
+        tag = wait.until(
+            EC.presence_of_element_located((By.XPATH, "//span[@class='tag-item']/a[@class='tag' and text()='love']"))
+        )
+        actualResult = tag.text.strip()
         expectedResult = "Viewing tag: love"
+
         print(f"Actual Result: {actualResult}")
-        print(f"Expected Result:{expectedResult}")
+        print(f"Expected Result: {expectedResult}")
+
         unittest.TestCase().assertIsNot(actualResult, expectedResult,
-                                     f'Passed:Expected "{expectedResult}",but got "{actualResult}')
-        print("Success:assertIsNot ")
+                                        " 'love' tag should not match 'Viewing tag: love'!")
+        print(" Success: assertIsNot verification passed!")
+    finally:
+        driver.quit()
 
-    except AssertionError as e:
-        print(e)
 
-    teardown(driver)
+def test_tag_assert_is():
 
-def test_tag():
-    driver = setup()
-    wait = WebDriverWait(driver, 10)
+    driver = create_driver()
+    wait = WebDriverWait(driver, 15)
     try:
-        tag = wait.until(EC.presence_of_element_located((By.XPATH, '//span[@class="tag-item"]/a[@class="tag" and text()="love"]')))
-        actualResult = tag.text
-        expectedResult = "Viewing tag: love"
+        tag = wait.until(
+            EC.presence_of_element_located((By.XPATH, "//span[@class='tag-item']/a[@class='tag' and text()='love']"))
+        )
+        actualResult = tag.text.strip()
+        expectedResult = "love"
+
         print(f"Actual Result: {actualResult}")
-        print(f"Expected Result:{expectedResult}")
-        unittest.TestCase().assertIs(actualResult, expectedResult,
-                                     f'Failed:Expected "{expectedResult}",but got "{actualResult}"')
-        print("Success:assertIs ")
+        print(f"Expected Result: {expectedResult}")
 
-    except AssertionError as e:
-        print(e)
-
-    teardown(driver)
-
-
-
-
-
-
-
-
-
-
-
-
-
+        unittest.TestCase().assertEqual(actualResult, expectedResult, " 'love' tag does not match expected value!")
+        print(" Success: assertIs verification passed!")
+    finally:
+        driver.quit()
 
 
